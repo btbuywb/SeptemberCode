@@ -1,0 +1,58 @@
+#include<bits/stdc++.h>
+using namespace std;
+int top;
+struct btnode
+{
+    char data;
+    struct btnode *l;
+    struct btnode *r;
+};
+char a[123];
+struct btnode *creat()
+{
+    struct  btnode *root;
+    top++;
+    if(a[top]==',')
+        root=NULL;
+    else
+    {
+        root=(struct btnode*)malloc(sizeof(struct btnode));
+        root->data=a[top];
+        root->l=creat();
+        root->r=creat();
+    }
+
+    return root;
+};
+
+void level(struct btnode *root)
+{
+    struct btnode *temp[123];
+    int  front  =0,rear=0;
+    temp[front++]=root;
+    while(front>rear)
+    {
+        if(temp[rear])
+        {
+            cout<<temp[rear]->data;
+            temp[front++]=temp[rear]->l;
+            temp[front++]=temp[rear]->r;
+        }
+        rear++;
+    }
+ }
+int main()
+{
+    struct btnode *root;
+    while( cin>>a)
+    {
+        top=-1;
+
+        root=creat();
+    
+        cout<<"层次遍历为";
+        level(root);
+
+    }
+    return 0;
+}
