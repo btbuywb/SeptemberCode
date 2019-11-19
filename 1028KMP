@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+using namespace  std;
+int nnext[1000009];
+void setnext(char *p)
+{
+    int i=0,j=-1,t;
+    t=strlen(p);  /*妈的，被这个叼东西坑死我了，这么耗时*/
+    nnext[0]=-1;
+    while(i<t)
+    {
+        if(j==-1||p[i]==p[j])
+        {
+            i++;
+            j++;
+            nnext[i]=j;
+        }
+        else
+            j=nnext[j];
+    }
+}
+void kmp(char *t,char *p)
+{
+    setnext(p);
+    int i=0,j=0,m=strlen(t),n=strlen(p);
+    while(i<m&&j<n)
+    {
+        if(t[i]==p[j]||j==-1)
+        {
+            i++;
+            j++;
+
+        }
+        else
+            j=nnext[j];
+    }
+   if(j==n) printf("%d\n",i-j+1);
+   else printf("%d\n",-1);
+}
+int main()
+{
+    ios::sync_with_stdio(false);
+    char str1[1000009],str2[1000009];
+    while(scanf("%s %s",str1,str2)!=EOF)
+        kmp(str1,str2);
+
+    return 0;
+}
