@@ -1,0 +1,39 @@
+#include<iostream>
+using namespace std;
+struct node
+{
+    int  p,w,wp;
+}a[11],t;
+int main()
+{
+    int i,j,m,sum=0;
+    cin>>m;
+    for(i=0;i<10;i++){
+            cin>>a[i].p>>a[i].w;
+    a[i].wp=a[i].p/a[i].w;}
+    for(i=0;i<10;i++)
+            for(j=i+1;j<10;j++)
+            if(a[i].wp<a[j].wp)
+    {
+        t=a[i];a[i]=a[j];a[j]=t;
+    }
+    for(i=0;i<10;i++)
+    {
+        if(m-a[i].w>=0)
+        {
+            sum=sum+a[i].p;
+            m=m-a[i].w;
+        }
+        else 
+        {
+            
+            sum+=(a[i].wp)*m;
+            break;
+        
+        }
+    }
+
+
+    cout<<sum<<endl;
+
+}
