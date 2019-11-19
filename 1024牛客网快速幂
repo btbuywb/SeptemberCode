@@ -1,0 +1,38 @@
+#include<stdio.h>
+ 
+#define DIVISOR 1000000007
+ 
+void mul_matrix(long long a[2][2], long long b[2][2], long long c[2][2]){
+    int i, j, k;
+    long long temp[2][2] = {{0, 0}, {0, 0}};
+    for(k=0; k<2; k++){
+        for(i=0; i<2; i++){
+            for(j=0; j<2; j++){
+                temp[i][j] = (temp[i][j] + (a[i][k] * b[k][j]) % DIVISOR) % DIVISOR;
+            }
+        }
+    }
+    for(i=0; i<2; i++){
+        for(j=0; j<2; j++){
+            c[i][j] = temp[i][j];
+        }
+    }
+}
+ 
+int main(){
+    long long n;
+    long long a[2][2] = {{1, 1}, {1, 0}};
+    long long sum[2][2] = {{1, 0}, {0, 1}};
+     
+    scanf("%lld", &n);
+    n = n - 1;
+    while(n > 0){
+        if(n&1) mul_matrix(a, sum, sum);
+        mul_matrix(a, a, a);
+        n = n >> 1;
+    }
+ 
+    printf("%d\n", sum[0][0]);
+ 
+    return 0;
+}
