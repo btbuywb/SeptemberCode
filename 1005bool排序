@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int m;
+    char  n;
+}a[123];
+
+bool cmop(struct node a,struct  node b)
+{
+    return a.m>b.m;
+}
+
+int main()
+{
+    int i;
+    for(i=0;i<5;i++)cin>>a[i].m;
+
+    sort(a,a+5,cmop);
+
+    return 0;
+}
