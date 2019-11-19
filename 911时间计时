@@ -1,0 +1,35 @@
+#include<iostream>
+
+#include<ctime>
+
+using namespace std;
+
+int main()
+
+{
+
+	double start,stop,dur;
+
+    start=clock();
+
+    for(int i=0;i<123456789;i++);
+
+	stop=clock();
+
+	dur=stop-start;
+
+	cout<<"\n用时："<<dur<<"毫秒\n";
+
+	 start=clock();
+#pragma omp paraller for        /*并行运行*/
+    for(int i=0;i<123456789;i++);
+
+	stop=clock();
+
+	dur=stop-start;
+
+	cout<<"\n用时："<<dur<<"毫秒\n";
+
+	return 0;
+
+}
