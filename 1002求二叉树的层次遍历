@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct node
+{
+    char data;  // 储存字符
+    struct node *lc, *rc;   // 左右节点
+};
+char preorder[100]; // 前序
+char inorder[100];  // 中序
+struct node *creat(int len, char *preorder, char *inorder)  /* 根据前序中序建立二叉树*/
+{
+    struct node *root;
+    int i;
+    if(len == 0) return NULL;   // 如果长度为零，则不能建树
+    root = (struct node*)malloc(sizeof(struct node));  // 申请新的节点
+    root -> data = preorder[0];  // 前序的顺序第一个一定是根节点
+    for(i = 0; i < len; i ++)  // 寻找中序中到根节点，即现在的这颗树的所有左子树
+    {
+        if(inorder[i] == preorder[0])break;  // 找到跳出循环
+    }
+    root -> lc = creat(i, preorder + 1, inorder);  // 建左子树
+    root -> rc = creat(len - i - 1, preorder + i + 1, inorder + i + 1); // 建右子树
+    return root;  // 返回根节点。
+};
+
+void level_traversal(struct node *root)  /* 层次遍历*/
+{
+    if(root == NULL) return;   // 树不存在
+    struct node *queue[10005], *now;  // 建立队列
+    int front = 0;   // 队首、尾初始化
+    int rear = 0;
+    queue[rear ++] = root;  // 入队
+    while(front < rear)
+    {
+        now = queue[front ++]; // 出队
+        printf("%c", now -> data);
+        if(now -> lc != NULL)  // 左子树
+        {
+            queue[rear++] = now -> lc;
+        }
+        if(now -> rc != NULL)  // 右子树
+        {
+            queue[rear++] = now -> rc;
+        }
+    }
+}
+
+int main()
+{
+    int t;
+    scanf("%d", &t);
+    while(t--)
+    {
+        scanf("%s%s",preorder,inorder);
+        struct node *root;
+        int len = strlen(preorder);
+        root = creat(len,preorder,inorder);
+        level_traversal(root);
+        printf("\n");
+    }
+    return 0;
+}
