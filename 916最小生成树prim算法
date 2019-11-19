@@ -1,0 +1,70 @@
+
+int prim()
+
+{
+
+    int res = 0 ; //最小权值路径的权值和;
+
+    int i , j ;
+
+    vis[1] = 1 ;
+
+    for(i=1;i<=n;i++) //将lowc的初值都附为与定点1所连接边的权值;
+
+    {
+
+        lowc[i] = Map[1][i] ;
+
+    }
+
+    for(i=1;i<n;i++)//因为起一个是初始值，所以不用访问，所以访问n-1个;
+
+    {
+
+        int minc = INF ; //minc是记录最小权值的;
+
+        int p=-1 ; //p记录的是与最小权值有关的点的下标;-1删除还可以ac
+
+        for(j=1;j<=n;j++)
+
+        {
+
+            if(vis[j]==0&&minc>lowc[j])
+
+            {
+
+                minc = lowc[j] ;
+
+                p = j ;
+
+            }
+
+        }
+
+        if(minc == INF)
+
+            return -1 ;
+
+        res += minc ;
+
+        vis[p] = 1 ;
+
+        for(j=1;j<=n;j++)
+
+        {
+
+            if(vis[j]==0&&lowc[j]>Map[p][j]) //如果这个点没有被访问过，而且这个点与原来最小点的权值为x，与现在最小点的权值为y，如果y<x ,那么就把这个点的lowc由x改为y;
+
+            {
+
+                lowc[j] = Map[p][j] ;
+
+            }
+
+        }
+
+    }
+
+    return res ;
+
+}
