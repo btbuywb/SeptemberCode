@@ -1,0 +1,64 @@
+#include<bits/stdc++.h>
+using namespace std;
+char a[123];
+int i;
+struct btnode
+{
+    struct btnode *l,*r;
+    char data;
+};
+struct btnode *creat()
+{
+    i++;
+    struct btnode *root;
+    if(a[i]==',')root=NULL;
+    else
+    {
+        root=(struct btnode*)malloc(sizeof(struct btnode));
+        root->data=a[i];
+        root->l=creat();
+        root->r=creat();
+    };
+    return root;
+};
+int leafnumber(struct btnode *root)
+{
+    if(root==NULL)return 0;
+
+    if(root->l==NULL&&root->r==NULL)return 1;
+
+    return   leafnumber(root->l)+    leafnumber(root->r);;
+}
+void postorder(struct btnode *root)
+{
+    if(root)
+    {
+        postorder(root->l);
+        postorder(root->r);
+        cout<<root->data;
+    }
+}
+int high(struct btnode *root)/*统计二叉树的高度*/
+{
+    if(root==NULL)return 0;
+    int x,y;
+    x=high(root->l);
+    y=high(root->r);
+    return (x>y?x:y)+1;
+}
+int main()
+{
+    struct btnode *root;
+    while(cin>>a)
+    {
+        i=-1;
+        root=creat();
+        /*   inorder(root);
+           cout<<endl;*/
+       cout<<"后序遍历"; postorder(root);
+        cout<<endl;
+        cout<<"二叉树的高度为"<<high(root)<<endl;
+        cout<<"树的叶子结点数目"<<leafnumber(root)<<endl;
+    }
+    return 0;
+}
