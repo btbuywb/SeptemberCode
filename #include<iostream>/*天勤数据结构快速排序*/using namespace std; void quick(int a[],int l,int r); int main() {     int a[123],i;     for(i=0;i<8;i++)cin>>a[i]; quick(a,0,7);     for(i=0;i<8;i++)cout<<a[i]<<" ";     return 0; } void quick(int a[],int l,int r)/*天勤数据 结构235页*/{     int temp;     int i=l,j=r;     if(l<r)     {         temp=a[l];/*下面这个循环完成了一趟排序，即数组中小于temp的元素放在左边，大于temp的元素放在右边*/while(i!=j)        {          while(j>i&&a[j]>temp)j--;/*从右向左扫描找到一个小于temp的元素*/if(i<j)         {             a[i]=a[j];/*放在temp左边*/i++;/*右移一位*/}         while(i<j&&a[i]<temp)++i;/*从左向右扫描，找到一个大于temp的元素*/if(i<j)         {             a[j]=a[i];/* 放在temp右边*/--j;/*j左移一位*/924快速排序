@@ -1,0 +1,41 @@
+#include<iostream>     /*天勤数据结构快速排序*/
+using namespace std;
+void quick(int a[],int l,int r);
+int main()
+{
+    int a[123],i;
+    for(i=0;i<8;i++)cin>>a[i];
+quick(a,0,7);
+    for(i=0;i<8;i++)cout<<a[i]<<" ";
+    return 0;
+}
+void quick(int a[],int l,int r)  /*天勤数据 结构235页*/
+{
+    int temp;
+    int i=l,j=r;
+    if(l<r)
+    {
+        temp=a[l];
+        /*下面这个循环完成了一趟排序，即数组中小于temp的元素放在左边，大于temp的元素放在右边*/
+        while(i!=j)
+       {
+
+         while(j>i&&a[j]>temp)j--;   /*从右向左扫描找到一个小于temp的元素*/
+        if(i<j)
+        {
+            a[i]=a[j];      /*放在temp左边*/
+            i++;        /*右移一位*/
+        }
+        while(i<j&&a[i]<temp)++i;   /*从左向右扫描，找到一个大于temp的元素*/
+        if(i<j)
+        {
+            a[j]=a[i];   /* 放在temp右边*/
+            --j;             /*j左移一位*/
+        }
+       }
+       a[i]=temp;
+       quick(a,l,r-1);
+        quick(a,l+1,r);
+    }
+
+}
