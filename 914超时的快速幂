@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int MOD=1000000007;
+struct  node
+{
+	long long int a[2][2];
+;
+ }
+ ;
+ node mul (node x,node y)
+ {
+ 	node temp;
+ 	int i,j,k;
+ 	memset(temp.a,0,sizeof(temp.a));
+
+ 	for(i=0;i<2;i++)
+ 	  for(j=0;j<2;j++)
+ 	     for(k=0;k<2;k++)
+ 	     temp.a[i][j]=( temp.a[i][j]+(x.a[i][k]%MOD)*(y.a[k][j]%MOD)%MOD)%MOD;
+
+
+ 	     return temp;
+ }
+ long long int f(int n)
+ {
+ node c,y;
+ 	c.a[0][0]=1;	c.a[0][1]=1;	c.a[1][0]=1;	c.a[1][1]=0;
+y.a[0][0]=1;y.a[0][1]=0;y.a[1][0]=0;y.a[1][1]=1;
+while(n)
+{
+	if(n&1)y=mul(y,c);
+
+	c=mul(c,c);
+
+	n=n>>1;
+}
+return y.a[0][1];
+ }
+int main()
+{
+ int n;
+while(~scanf("%d",&n))
+{
+  printf("%lld\n",f(n)%MOD);
+}
+
+return 0;
+}
