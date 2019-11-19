@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+int m,k;
+int a[123][123];
+int b[123];
+void dfs(int n)
+{
+    int i;
+    if(!n)cout<<n;
+    else cout<<" "<<n;
+    b[n]=1;
+    for(i=0;i<k;i++)    
+    {
+     if(b[i]==0&&a[n][i]==1)   /*当前结点未走，并且到此结点有路径*/
+            dfs(i);
+    }
+
+}
+int main()
+{
+    int t,i,x,y;
+    cin>>t;
+    while(t--)
+    {
+        memset(b,0,sizeof(b));
+        memset(a,0,sizeof(a));
+      cin>>k>>m;
+      for(i=0;i<m;i++)
+      {
+       cin>>x>>y;
+       a[x][y]=a[y][x]=1;
+      }
+      dfs(0);
+      cout<<endl;
+    }
+    return 0;
+}
