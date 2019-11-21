@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{
+    public:
+    int data;    /*这里用char会报错*/
+    node *next;   
+}*head[501230],*p,*q;
+int main()
+{
+
+    int i,m,n,x,y,t,flag;
+    while(cin>>n>>m)
+    {
+
+      for(i=0;i<n;i++)
+        head[i]=NULL;
+        for(i=0;i<m;i++)
+        {
+            cin>>x>>y;
+            if(head[x]==NULL)
+            {
+                head[x]=new node;
+                head[x]->data=y;
+                head[x]->next=NULL;
+            }
+            else
+            {
+                q=new node;
+              q->data=y;
+              q->next=head[x]->next;
+              head[x]->next=q;
+
+            }
+
+        }
+        cin>>t;
+        while(t--)
+        {
+            flag=0;
+            cin>>x>>y;
+            if(head[x]==NULL);
+            else
+            {
+                for(p=head[x];p!=NULL;p=p->next)
+                {
+                    if(p->data==y)
+                    {
+                        flag=1;
+                        break;
+                    }
+                }
+            }
+
+            if(flag)cout<<"Yes"<<endl;
+            else cout<<"No"<<endl;
+        }
+
+    }
+    return 0;
+}
