@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+bool a[5001][5001];/*这里用int 也会超时，oh my god*/
+int main()
+{
+  int m,n,i,x,y;
+  while(cin>>n>>m)
+  {
+
+      memset(a,0,sizeof(a));
+      for(i=0;i<m;i++)
+      {
+       scanf("%d%d",&x,&y);  /*在这里必须用scanf输入数据，否则会超时*/
+          a[x][y]=1;
+      }
+      cin>>n;
+      while(n--)
+      {
+            cin>>x>>y;
+          if(a[x][y]==1)
+          cout<<"Yes"<<endl;
+          else
+           cout<<"No"<<endl;
+      }
+  }
+        return 0;
+}
